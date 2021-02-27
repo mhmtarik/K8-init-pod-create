@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp-pod2
+  labels:
+    app: myapp
+spec:
+  containers:
+  - name: openshift-container
+    image: openshift/hello-openshift
+  initContainers:
+  - name: init-myservice
+    image: busybox
+    command: ['sh', '-c', 'until nslookup mysvc1 && nslookup mysvc2; do echo waiting for  myservice; sleep 2; done;']
+  
+
